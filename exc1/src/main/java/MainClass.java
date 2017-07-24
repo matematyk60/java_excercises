@@ -63,6 +63,9 @@ public class MainClass{
     }
 
     public static void main(String[] args){
+        if (args.length == 0){
+            throw(new RuntimeException("Size argument not given"));
+        }
 
         Random generator = new Random();
         int depth = generator.nextInt(5)+1;
