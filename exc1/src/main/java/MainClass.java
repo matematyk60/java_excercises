@@ -65,7 +65,7 @@ public class MainClass{
     public static void main(String[] args){
 
         Random generator = new Random();
-        int depth =5; //generator.nextInt(5)+1;
+        int depth = generator.nextInt(5)+1;
         int size = Integer.parseInt(args[0]);
         
         Employee[] employees = getDevs((int)Math.pow(size,depth));
@@ -95,11 +95,15 @@ public class MainClass{
             }
         }
 
-        for(int i = 0 ; i< 122 ; i++){
+        int tasks = generator.nextInt(100)+1;
+
+        for(int i = 0 ; i< tasks ; i++){
             ceo.assign(getTask());
         }
 
         ceo.reportWork();
+
+        System.out.println("Just created Company of depth " +depth + " and size " + size+ ", recieved " + tasks + " tasks");
 
     }
 }
