@@ -1,5 +1,8 @@
 package dgodek.company;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by matematyk60 on 23.07.17.
  */
@@ -71,11 +74,11 @@ public class TeamManager extends AbstactEmployee implements Manager {
 
     @Override
     public Report reportWork() {
-        for(Employee e : employees){
-            e.reportWork();
+        Report[] subWorkersReports = new Report[maxSize];
+        for(int i = 0 ; i < employees.length ; i++){
+            subWorkersReports[i] = employees[i].reportWork();
         }
-        return new Report(this);
-
+        return new Report(this, subWorkersReports);
     }
 
 

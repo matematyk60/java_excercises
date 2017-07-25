@@ -104,7 +104,9 @@ public class MainClass {
             ceo.assign(getTask());
         }
 
-        ceo.reportWork();
+        Report report = ceo.reportWork();
+
+        report.print();
 
         System.out.println("Just created Company of depth " +depth + " and size " + size+ ", recieved " + tasks + " tasks");
 
