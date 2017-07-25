@@ -8,7 +8,7 @@ import java.util.Random;
 
 
 
-public class MainClass{
+public class MainClass {
     private static String getName() {
         String[]names={"Andrzej","Szymon","Piotr","Ambroży",
                 "Bonifacy","Bill","Andżelika","Kajtek","Feliks","Beata","Robert"};
