@@ -5,6 +5,6 @@ package dgodek.company;
  */
 public class Tester extends Developer {
     public Tester(String name) {
-        super(name, Role.Tester);
+        super(name, Role.TESTER);
     }
 }

@@ -14,10 +14,5 @@ public interface Employee {
     public Report reportWork();
 
     public int getAmountOfWork();
-
-
-
-
-
-
+    
 }

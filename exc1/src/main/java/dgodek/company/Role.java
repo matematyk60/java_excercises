@@ -5,10 +5,10 @@ package dgodek.company;
  */
 public enum Role {
     CEO,
-    Development_manager,
-    Contributor,
-    Teamleader,
-    Tester,
-    Manager,
-    Developer,
+    DEVELOPMENT_MANAGER,
+    CONTRIBUTOR,
+    TEAMLEADER,
+    TESTER,
+    MANAGER,
+    DEVELOPER,
 }

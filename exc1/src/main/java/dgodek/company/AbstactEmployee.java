@@ -41,4 +41,18 @@ public abstract class AbstactEmployee implements Employee {
     public String toString() {
         return ("Name: " + name + " Role:" + role);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AbstactEmployee that = (AbstactEmployee) o;
+
+        if (amountOfWork != that.amountOfWork) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        return role == that.role;
+    }
+
+
 }

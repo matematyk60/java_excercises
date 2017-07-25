@@ -9,7 +9,7 @@ import java.util.Random;
 
 
 public class MainClass{
-    private static String getName(){
+    private static String getName() {
         String[]names={"Andrzej","Szymon","Piotr","Ambroży",
                 "Bonifacy","Bill","Andżelika","Kajtek","Feliks","Beata","Robert"};
         Random generator = new Random();
@@ -17,7 +17,7 @@ public class MainClass{
         return names[tmp];
     }
 
-    private static Task getTask(){
+    private static Task getTask() {
         String[] names = {"pisanie", "czytanie", "logowanie", "parsowanie", "wyliczanie",
                 "wyszukwianie", "odliczanie", "usuwanie", "liczenie", "szacowanie", "rejestracja"};
         Random generator = new Random();
@@ -25,45 +25,45 @@ public class MainClass{
         return new Task(names[tmp],tmp);
     }
 
-    private static Developer[] getDevs(int amount){
+    private static Developer[] getDevs(int amount) {
 
         Developer[] devs = new Developer[amount];
 
-        for(int i = 0 ; i < amount ; i++){
-            if(i%2==1){
-                devs[i] = new Developer(getName(),Role.Tester);
+        for(int i = 0 ; i < amount ; i++) {
+            if(i%2==1) {
+                devs[i] = new Developer(getName(),Role.TESTER);
             } else {
-                devs[i] = new Developer(getName(),Role.Developer);
+                devs[i] = new Developer(getName(),Role.DEVELOPER);
             }
         }
 
         return devs;
     }
 
-    private static Manager[] getManagers(int amount, int size){
+    private static Manager[] getManagers(int amount, int size) {
 
         Manager[] managers = new Manager[amount];
 
-        for(int i = 0 ; i < amount ; i++){
-            managers[i] = new TeamManager(getName(),Role.Manager, size);
+        for(int i = 0 ; i < amount ; i++) {
+            managers[i] = new TeamManager(getName(),Role.MANAGER, size);
         }
 
         return managers;
     }
 
-    private static void assignEmployeesToManagers(Manager[] managers, Employee[] employees, int size){
+    private static void assignEmployeesToManagers(Manager[] managers, Employee[] employees, int size) {
         int actualEmployee = 0;
 
         for (Manager m : managers) {
             for (int i = 0; i < size; i++) {
-                m.Hire(employees[actualEmployee]);
+                m.hire(employees[actualEmployee]);
                 actualEmployee++;
             }
         }
     }
 
-    public static void main(String[] args){
-        if (args.length == 0){
+    public static void main(String[] args) {
+        if (args.length == 0) {
             throw(new RuntimeException("Size argument not given"));
         }
 
@@ -75,9 +75,9 @@ public class MainClass{
 
         TeamManager ceo = new TeamManager(getName(), Role.CEO, size);
         
-        if(depth == 1){
-        	for(Employee dev : employees){
-        		ceo.Hire(dev);
+        if(depth == 1) {
+            for(Employee dev : employees) {
+                ceo.hire(dev);
         	}
         } else {
 
@@ -94,13 +94,13 @@ public class MainClass{
             }
 
             for (Employee e : managers) {
-                ceo.Hire(e);
+                ceo.hire(e);
             }
         }
 
         int tasks = generator.nextInt(100)+1;
 
-        for(int i = 0 ; i< tasks ; i++){
+        for(int i = 0 ; i< tasks ; i++) {
             ceo.assign(getTask());
         }
 

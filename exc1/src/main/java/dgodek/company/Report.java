@@ -10,7 +10,7 @@ public class Report {
 
     private String nameOfWorker;
 
-    public Report(Employee employee){
+    public Report(Employee employee) {
         nameOfWorker = employee.getName();
         amountOfWork = employee.getAmountOfWork();
         role = employee.getRole();

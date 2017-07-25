@@ -6,69 +6,65 @@ package dgodek.company;
 public class TeamManager extends AbstactEmployee implements Manager {
     private Employee[] employees;
 
-    private int number_of_employees;
+    private int numberOfEmployees;
 
-    private int max_size;
+    private final int maxSize;
 
-    private int next_worker;
-
-    private int next_manager;
+    private int nextWorkerIdx;
 
 
-    public TeamManager(String name, Role role , int max_size) {
+    public TeamManager(String name, Role role , int maxSize) {
         super(name, role);
-        this.max_size = max_size;
-        this.next_worker = 0;
-        this.next_manager = 0;
-        this.number_of_employees = 0;
-        this.employees = new Employee[this.max_size];
+        this.maxSize = maxSize;
+        this.nextWorkerIdx = 0;
+        this.numberOfEmployees = 0;
+        this.employees = new Employee[this.maxSize];
     }
 
     @Override
     public boolean canHire() {
-        return (max_size > number_of_employees);
+        return (maxSize > numberOfEmployees);
     }
 
     @Override
-    public void Hire(Employee employee) {
+    public void hire(Employee employee) {
         if(canHire()) {
-            employees[number_of_employees] = employee;
-            number_of_employees += 1;
+            employees[numberOfEmployees] = employee;
+            numberOfEmployees += 1;
         } else{
-            throw(new TooManyEmployees());
+            throw new TooManyEmployeesException();
         }
     }
 
     @Override
-    public void Fire(Employee employee) {
-        int i = 0;
-        for(Employee tmp : employees){
-            if(tmp.getName().equals(employee.getName())){
+    public void fire(Employee employee) {
+        for(int i = 0 ; i < employees.length ; i++){
+            if(employees[i].equals(employee)){
                 deleteEmployee(i);
-                break;
+                return;
             }
-            i++;
         }
+        throw new NoSuchHiredEmployeeException();
     }
 
-    private void deleteEmployee(int number){
-        employees[number] = null;
-        int i = number +1;
-        while(employees[i] != null && i != max_size){
-            employees[number] = employees[i];
+    private void deleteEmployee(int idx){
+        employees[idx] = null;
+        int i = idx +1;
+        while(employees[i] != null && i != maxSize){
+            employees[idx] = employees[i];
             i++;
-            number++;
+            idx++;
         }
     }
 
     @Override
     public void assign(Task task) {
-        if(next_worker == number_of_employees){
-            next_worker = 0;
+        if(nextWorkerIdx == numberOfEmployees){
+            nextWorkerIdx = 0;
         }
-        System.out.println(this.toString() + " | Assigning " + task.toString() + "to employee " + employees[next_worker].toString());
-        employees[next_worker].assign(task);
-        next_worker++;
+        System.out.println(this.toString() + " | Assigning " + task.toString() + "to employee " + employees[nextWorkerIdx].toString());
+        employees[nextWorkerIdx].assign(task);
+        nextWorkerIdx++;
         setAmountOfWork(getAmountOfWork()+task.getunitsOfWork());
     }
 
