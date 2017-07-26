@@ -1,4 +1,8 @@
-package dgodek.company;
+package dgodek.company.employee;
+
+import dgodek.company.Task;
+import dgodek.company.report.DeveloperReport;
+import dgodek.company.report.Report;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +27,7 @@ public class Developer extends AbstactEmployee implements Employee{
 
     @Override
     public Report reportWork() {
-        return new Report(this);
+        return new DeveloperReport(this);
     }
 
 }

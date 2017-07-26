@@ -1,4 +1,4 @@
-package dgodek.company;
+package dgodek.company.exceptions;
 
 public class NoSuchHiredEmployeeException extends RuntimeException {
 

@@ -1,4 +1,7 @@
-package dgodek.company;
+package dgodek.company.employee;
+
+import dgodek.company.Task;
+import dgodek.company.report.Report;
 
 /**
  * Created by matematyk60 on 23.07.17.

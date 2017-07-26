@@ -1,11 +1,9 @@
-package dgodek.company;
+package dgodek.company.report;
 
-import java.util.List;
+import dgodek.company.employee.Employee;
+import dgodek.company.employee.Role;
 
-/**
- * Created by matematyk60 on 23.07.17.
- */
-public class Report {
+public class ManagerReport implements Report {
     private int amountOfWork;
 
     private Role role;
@@ -14,13 +12,7 @@ public class Report {
 
     private Report[] reports;
 
-    public Report(Employee employee) {
-        nameOfWorker = employee.getName();
-        amountOfWork = employee.getAmountOfWork();
-        role = employee.getRole();
-    }
-
-    public Report(Employee employee, Report[] reports) {
+    public ManagerReport(Employee employee, Report[] reports) {
         nameOfWorker = employee.getName();
         amountOfWork = employee.getAmountOfWork();
         role = employee.getRole();

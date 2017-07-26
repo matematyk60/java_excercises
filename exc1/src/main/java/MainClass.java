@@ -2,6 +2,8 @@
  * Created by matematyk60 on 23.07.17.
  */
 import dgodek.company.*;
+import dgodek.company.employee.*;
+import dgodek.company.report.Report;
 
 import java.util.Random;
 
@@ -31,7 +33,7 @@ public class MainClass {
 
         for(int i = 0 ; i < amount ; i++) {
             if(i%2==1) {
-                devs[i] = new Developer(getName(),Role.TESTER);
+                devs[i] = new Developer(getName(), Role.TESTER);
             } else {
                 devs[i] = new Developer(getName(),Role.DEVELOPER);
             }

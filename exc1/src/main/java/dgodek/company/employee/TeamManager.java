@@ -1,7 +1,10 @@
-package dgodek.company;
+package dgodek.company.employee;
 
-import java.util.ArrayList;
-import java.util.List;
+import dgodek.company.exceptions.NoSuchHiredEmployeeException;
+import dgodek.company.Task;
+import dgodek.company.exceptions.TooManyEmployeesException;
+import dgodek.company.report.ManagerReport;
+import dgodek.company.report.Report;
 
 /**
  * Created by matematyk60 on 23.07.17.
@@ -78,7 +81,7 @@ public class TeamManager extends AbstactEmployee implements Manager {
         for(int i = 0 ; i < employees.length ; i++){
             subWorkersReports[i] = employees[i].reportWork();
         }
-        return new Report(this, subWorkersReports);
+        return new ManagerReport(this, subWorkersReports);
     }
 
 
