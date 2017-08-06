@@ -10,6 +10,14 @@ repositories {
 }
 
 jar {
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+        configurations.runtime.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
     manifest {
         attributes(
                 'Main-Class': 'MainClass'
