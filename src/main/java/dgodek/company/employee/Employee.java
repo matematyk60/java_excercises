@@ -8,14 +8,14 @@ import dgodek.company.report.Report;
  */
 
 public interface Employee {
-    public String getName();
+    String getName();
 
-    public Role getRole();
+    Role getRole();
 
-    public void assign(Task task);
+    void assign(Task task);
 
-    public Report reportWork();
+    Report reportWork();
 
-    public int getAmountOfWork();
-    
+    int getAmountOfWork();
+
 }
