@@ -1,5 +1,7 @@
 package dgodek.company.report;
 
+import java.util.List;
+
 public interface Report {
-    public void print();
+    List<Report> getReports();
 }

@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * Created by matematyk60 on 23.07.17.
  */
-public class Developer extends AbstactEmployee implements Employee{
-    private List<Task> tasks;
+public class Developer extends AbstactEmployee {
+    private final List<Task> tasks;
 
     public Developer(String name, Role role) {
         super(name, role);
@@ -22,7 +22,7 @@ public class Developer extends AbstactEmployee implements Employee{
     public void assign(Task task) {
         System.out.println(this.toString() + " | Adding task " + task.toString() + " to my tasklist");
         tasks.add(task);
-        setAmountOfWork(getAmountOfWork()+task.getunitsOfWork());
+        setAmountOfWork(getAmountOfWork() + task.getunitsOfWork());
     }
 
     @Override

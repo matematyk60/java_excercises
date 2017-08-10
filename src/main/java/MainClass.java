@@ -1,6 +1,7 @@
 /**
  * Created by matematyk60 on 23.07.17.
  */
+
 import dgodek.company.*;
 import dgodek.company.employee.*;
 import dgodek.company.report.Report;
@@ -8,12 +9,10 @@ import dgodek.company.report.Report;
 import java.util.Random;
 
 
-
-
 public class MainClass {
     private static String getName() {
-        String[]names={"Andrzej","Szymon","Piotr","Ambroży",
-                "Bonifacy","Bill","Andżelika","Kajtek","Feliks","Beata","Robert"};
+        String[] names = {"Andrzej", "Szymon", "Piotr", "Ambroży",
+                "Bonifacy", "Bill", "Andżelika", "Kajtek", "Feliks", "Beata", "Robert"};
         Random generator = new Random();
         int tmp = generator.nextInt(11);
         return names[tmp];
@@ -24,18 +23,18 @@ public class MainClass {
                 "wyszukwianie", "odliczanie", "usuwanie", "liczenie", "szacowanie", "rejestracja"};
         Random generator = new Random();
         int tmp = generator.nextInt(11);
-        return new Task(names[tmp],tmp);
+        return new Task(names[tmp], tmp);
     }
 
     private static Developer[] getDevs(int amount) {
 
         Developer[] devs = new Developer[amount];
 
-        for(int i = 0 ; i < amount ; i++) {
-            if(i%2==1) {
+        for (int i = 0; i < amount; i++) {
+            if (i % 2 == 1) {
                 devs[i] = new Developer(getName(), Role.TESTER);
             } else {
-                devs[i] = new Developer(getName(),Role.DEVELOPER);
+                devs[i] = new Developer(getName(), Role.DEVELOPER);
             }
         }
 
@@ -46,8 +45,8 @@ public class MainClass {
 
         Manager[] managers = new Manager[amount];
 
-        for(int i = 0 ; i < amount ; i++) {
-            managers[i] = new TeamManager(getName(),Role.MANAGER, size);
+        for (int i = 0; i < amount; i++) {
+            managers[i] = new TeamManager(getName(), Role.MANAGER, size);
         }
 
         return managers;
@@ -66,33 +65,34 @@ public class MainClass {
 
     public static void main(String[] args) {
         if (args.length == 0) {
-            throw(new RuntimeException("Size argument not given"));
+            throw (new RuntimeException("Size argument not given"));
         }
 
         Random generator = new Random();
-        int depth = generator.nextInt(5)+1;
+        int depth = generator.nextInt(5) + 1;
         int size = Integer.parseInt(args[0]);
-        
-        Employee[] employees = getDevs((int)Math.pow(size,depth));
+        ReportService reportService = new ReportService();
+
+        Employee[] employees = getDevs((int) Math.pow(size, depth));
 
         TeamManager ceo = new TeamManager(getName(), Role.CEO, size);
-        
-        if(depth == 1) {
-            for(Employee dev : employees) {
+
+        if (depth == 1) {
+            for (Employee dev : employees) {
                 ceo.hire(dev);
-        	}
+            }
         } else {
 
             Manager[] managers;
 
-            managers = getManagers((int)Math.pow(size, depth-1), size);
+            managers = getManagers((int) Math.pow(size, depth - 1), size);
 
-            assignEmployeesToManagers(managers,employees,size);
+            assignEmployeesToManagers(managers, employees, size);
 
             for (int i = depth - 1; i > 1; i--) {
                 employees = managers;
-                managers = getManagers((int)Math.pow(size, i-1),size);
-                assignEmployeesToManagers(managers,employees,size);
+                managers = getManagers((int) Math.pow(size, i - 1), size);
+                assignEmployeesToManagers(managers, employees, size);
             }
 
             for (Employee e : managers) {
@@ -100,17 +100,17 @@ public class MainClass {
             }
         }
 
-        int tasks = generator.nextInt(100)+1;
+        int tasks = generator.nextInt(100) + 1;
 
-        for(int i = 0 ; i< tasks ; i++) {
+        for (int i = 0; i < tasks; i++) {
             ceo.assign(getTask());
         }
 
         Report report = ceo.reportWork();
 
-        report.print();
+        reportService.printReport(report);
 
-        System.out.println("Just created Company of depth " +depth + " and size " + size+ ", recieved " + tasks + " tasks");
+        System.out.println("Just created Company of depth " + depth + " and size " + size + ", recieved " + tasks + " tasks");
 
     }
 }
