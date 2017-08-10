@@ -15,8 +15,6 @@ import java.util.List;
 public class TeamManager extends AbstactEmployee implements Manager {
     private List<Employee> employees;
 
-    private int numberOfEmployees;
-
     private final int maxSize;
 
     private int nextWorkerIdx;
@@ -26,7 +24,6 @@ public class TeamManager extends AbstactEmployee implements Manager {
         super(name, role);
         this.maxSize = maxSize;
         this.nextWorkerIdx = 0;
-        this.numberOfEmployees = 0;
         this.employees = new ArrayList<>();
     }
 
