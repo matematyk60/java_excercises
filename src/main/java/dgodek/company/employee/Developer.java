@@ -13,29 +13,9 @@ import java.util.List;
 public class Developer extends AbstractEmployee {
     private final List<Task> tasks;
 
-    public Developer(String name, String email, Sex sex, String academy, String nationality, Role role) {
-        super(name, email, sex, academy, nationality, role);
-        this.tasks = new ArrayList<>();
-    }
-
-    public Developer(String name, Role role) {
-        Employee employee = new AbstractEmployee
-                .Builder(name, "dawid.gdk@gmail.com", "polska")
-                .academy("AGH")
-                .role(Role.DEVELOPER)
-                .sex(Sex.MALE)
-                .developerBuild();
-
-        tasks = new ArrayList<>();
-    }
-
-    public Developer(AbstractEmployee.Builder builder) {
+    public Developer(Developer.Builder builder) {
         super(builder);
         tasks = new ArrayList<>();
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
     }
 
     @Override
@@ -50,4 +30,18 @@ public class Developer extends AbstractEmployee {
         return new DeveloperReport(this);
     }
 
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public static class Builder extends AbstractEmployee.Builder {
+        public Builder(String name, String email, String nationality) {
+            super(name, email, nationality);
+        }
+
+        @Override
+        public Developer build() {
+            return new Developer(this);
+        }
+    }
 }

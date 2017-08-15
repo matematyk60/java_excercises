@@ -25,5 +25,4 @@ public interface Employee {
     Report reportWork();
 
     int getAmountOfWork();
-
 }

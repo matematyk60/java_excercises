@@ -16,30 +16,19 @@ import java.util.stream.Collectors;
  */
 public class TeamManager extends AbstractEmployee implements Manager {
     private final  List<Employee> employees;
-
     private int maxSize;
-
     private Predicate<Employee> predicate;
 
-
-    public TeamManager(String name, String email, Sex sex, String academy, String nationality, Role role, int maxSize) {
-        super(name, email, sex, academy, nationality, role);
-        this.employees = new ArrayList<>();
-        this.maxSize = maxSize;
-        this.predicate = (e) -> true;
-    }
-
-    public TeamManager(Builder builder, int maxSize) {
+    public TeamManager(Builder builder) {
         super(builder);
+        this.maxSize = builder.maxSize;
+        this.predicate = builder.predicate;
         this.employees = new ArrayList<>();
     }
 
     @Override
     public boolean canHire(Employee employee) {
-        if(maxSize <= employees.size()) {
-            return false;
-        }
-        return predicate.test(employee);
+        return maxSize > employees.size() && predicate.test(employee);
     }
 
     @Override
@@ -60,11 +49,11 @@ public class TeamManager extends AbstractEmployee implements Manager {
 
     @Override
     public Employee getWorkerWithLowestAmountOfWork() {
-        Optional<Employee> employeeWithLowerstAmountOfWork = employees
+        Optional<Employee> employeeWithLowestAmountOfWork = employees
                 .stream()
                 .min(Comparator.comparing(Employee::getAmountOfWork));
 
-        return employeeWithLowerstAmountOfWork
+        return employeeWithLowestAmountOfWork
                 .orElseThrow(NoHiredEmployeesException::new);
     }
 
@@ -90,10 +79,24 @@ public class TeamManager extends AbstractEmployee implements Manager {
         return new ManagerReport(this, subWorkersReports);
     }
 
+    public static class Builder extends AbstractEmployee.Builder {
+        private final int maxSize;
+        private Predicate<Employee> predicate;
 
-    @Override
-    public String toString() {
-        return super.toString();
+        public Builder(String name, String email, int maxSize, String nationality) {
+            super(name, email, nationality);
+            this.maxSize = maxSize;
+        }
+
+        public Builder predicate(Predicate<Employee> predicate) {
+            this.predicate = predicate;
+            return this;
+        }
+
+        @Override
+        public TeamManager build() {
+            return new TeamManager(this);
+        }
     }
 
 }
