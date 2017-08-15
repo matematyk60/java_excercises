@@ -12,6 +12,14 @@ public interface Employee {
 
     Role getRole();
 
+    String getAcademy();
+
+    String getNationality();
+
+    Sex getSex();
+
+    String getEmail();
+
     void assign(Task task);
 
     Report reportWork();

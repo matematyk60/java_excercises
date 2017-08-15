@@ -4,6 +4,7 @@ import dgodek.company.employee.Employee;
 import dgodek.company.employee.Role;
 
 import java.util.List;
+import java.util.Optional;
 
 public class DeveloperReport implements Report {
     private int amountOfWork;
@@ -19,8 +20,8 @@ public class DeveloperReport implements Report {
     }
 
     @Override
-    public List<Report> getReports() {
-        return null;
+    public Optional<List<Report>> getReports() {
+        return Optional.empty();
     }
 
     @Override

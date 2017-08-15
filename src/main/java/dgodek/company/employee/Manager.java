@@ -8,6 +8,8 @@ public interface Manager extends Employee {
 
     public void fire(Employee employee);
 
-    public boolean canHire();
+    public boolean canHire(Employee employee);
+
+    public Employee getWorkerWithLowestAmountOfWork();
 
 }

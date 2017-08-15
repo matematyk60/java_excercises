@@ -4,6 +4,7 @@ import dgodek.company.employee.Employee;
 import dgodek.company.employee.Role;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ManagerReport implements Report {
     private int amountOfWork;
@@ -30,7 +31,7 @@ public class ManagerReport implements Report {
                 '}';
     }
 
-    public List<Report> getReports() {
-        return reports;
+    public Optional<List<Report>> getReports() {
+        return Optional.of(reports);
     }
 }
