@@ -1,24 +1,34 @@
 package dgodek.company.employee;
 
+import dgodek.company.Task;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by matematyk60 on 23.07.17.
  */
 public abstract class AbstractEmployee implements Employee {
     private final String name;
+    private final String surname;
     private final String email;
     private final String nationality;
-    private Sex sex;
-    private String academy;
+    private final Sex sex;
+    private final String academy;
+    protected final List<Task> tasks;
     private Role role;
-    private int amountOfWork;
+    protected int amountOfWork;
 
     public AbstractEmployee(Builder builder) {
         this.name = builder.name;
+        this.surname = builder.surname;
         this.email = builder.email;
         this.sex = builder.sex;
         this.academy = builder.academy;
         this.nationality = builder.nationality;
         this.role = builder.role;
+        this.amountOfWork = 0;
+        this.tasks = new ArrayList<>();
     }
 
     @Override
@@ -56,9 +66,14 @@ public abstract class AbstractEmployee implements Employee {
         return amountOfWork;
     }
 
+    @Override
+    public String getSurname() {
+        return surname;
+    }
 
-    public void setAmountOfWork(int amountOfWork) {
-        this.amountOfWork = amountOfWork;
+    @Override
+    public List<Task> getTasks() {
+        return tasks;
     }
 
     public void setRole(Role role) {
@@ -75,14 +90,16 @@ public abstract class AbstractEmployee implements Employee {
 
     public static abstract class Builder {
         private final String name;
+        private final String surname;
         private final String email;
         private final String nationality;
         private Sex sex;
         private String academy;
         private Role role;
 
-        public Builder(String name, String email, String nationality) {
+        public Builder(String name, String surname, String email, String nationality) {
             this.name = name;
+            this.surname = surname;
             this.email = email;
             this.nationality = nationality;
         }
