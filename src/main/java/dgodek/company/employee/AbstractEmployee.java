@@ -1,102 +1,34 @@
 package dgodek.company.employee;
 
+import dgodek.company.Task;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by matematyk60 on 23.07.17.
  */
 public abstract class AbstractEmployee implements Employee {
-
     private final String name;
-
-    private String email;
-
-    private Sex sex;
-
-    private String academy;
-
-    private String nationality;
-
+    private final String surname;
+    private final String email;
+    private final String nationality;
+    private final Sex sex;
+    private final String academy;
+    protected final List<Task> tasks;
     private Role role;
+    protected int amountOfWork;
 
-    private int amountOfWork;
-
-        
-    public AbstractEmployee(String name, String email, String nationality) {
-        this.name = name;
-        this.email = email;
-        this.nationality = nationality;
-    }
-
-    public AbstractEmployee(String name, String email, Sex sex, String academy, String nationality, Role role) {
-        this.name = name;
-        this.email = email;
-        this.sex = sex;
-        this.academy = academy;
-        this.nationality = nationality;
-        this.role = role;
-        this.amountOfWork = 0;
-    }
-
-    public AbstractEmployee(){
-        this.name = "def";
-    }
-
-    public AbstractEmployee(Builder builder){
+    public AbstractEmployee(Builder builder) {
         this.name = builder.name;
+        this.surname = builder.surname;
         this.email = builder.email;
         this.sex = builder.sex;
         this.academy = builder.academy;
         this.nationality = builder.nationality;
         this.role = builder.role;
-    }
-
-    public static class Builder {
-        private final String name;
-
-        private final String email;
-
-        private final String nationality;
-
-        private Sex sex;
-
-        private String academy;
-
-        private Role role;
-
-        private int maxSize;
-
-        public Builder(String name,String email,String nationality) {
-            this.name = name;
-            this.email = email;
-            this.nationality = nationality;
-        }
-
-        public Builder sex(Sex sex) {
-            this.sex = sex;
-            return this;
-        }
-
-        public Builder maxSize(int maxSize) {
-            this.maxSize = maxSize;
-            return this;
-        }
-
-        public Builder academy(String academy) {
-            this.academy = academy;
-            return this;
-        }
-
-        public Builder role(Role role) {
-            this.role = role;
-            return this;
-        }
-
-        public Developer developerBuild() {
-            return new Developer(this);
-        }
-
-        public TeamManager teamManagerBuild() {
-            return new TeamManager(this, maxSize);
-        }
+        this.amountOfWork = 0;
+        this.tasks = new ArrayList<>();
     }
 
     @Override
@@ -129,16 +61,23 @@ public abstract class AbstractEmployee implements Employee {
         return role;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
+    @Override
     public int getAmountOfWork() {
         return amountOfWork;
     }
 
-    public void setAmountOfWork(int amountOfWork) {
-        this.amountOfWork = amountOfWork;
+    @Override
+    public String getSurname() {
+        return surname;
+    }
+
+    @Override
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -147,5 +86,39 @@ public abstract class AbstractEmployee implements Employee {
                 "name='" + name + '\'' +
                 ", role=" + role +
                 '}';
+    }
+
+    public static abstract class Builder {
+        private final String name;
+        private final String surname;
+        private final String email;
+        private final String nationality;
+        private Sex sex;
+        private String academy;
+        private Role role;
+
+        public Builder(String name, String surname, String email, String nationality) {
+            this.name = name;
+            this.surname = surname;
+            this.email = email;
+            this.nationality = nationality;
+        }
+
+        public Builder sex(Sex sex) {
+            this.sex = sex;
+            return this;
+        }
+
+        public Builder academy(String academy) {
+            this.academy = academy;
+            return this;
+        }
+
+        public Builder role(Role role) {
+            this.role = role;
+            return this;
+        }
+
+        public abstract AbstractEmployee build();
     }
 }
