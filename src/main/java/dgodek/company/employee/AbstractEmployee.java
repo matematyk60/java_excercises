@@ -19,7 +19,7 @@ public abstract class AbstractEmployee implements Employee {
     private Role role;
     protected int amountOfWork;
 
-    public AbstractEmployee(Builder builder) {
+    protected AbstractEmployee(Builder builder) {
         this.name = builder.name;
         this.surname = builder.surname;
         this.email = builder.email;
@@ -88,7 +88,7 @@ public abstract class AbstractEmployee implements Employee {
                 '}';
     }
 
-    public static abstract class Builder {
+    public static abstract class Builder<T extends Builder<T>> {
         private final String name;
         private final String surname;
         private final String email;
@@ -97,28 +97,26 @@ public abstract class AbstractEmployee implements Employee {
         private String academy;
         private Role role;
 
-        public Builder(String name, String surname, String email, String nationality) {
+        protected Builder(String name, String surname, String email, String nationality) {
             this.name = name;
             this.surname = surname;
             this.email = email;
             this.nationality = nationality;
         }
 
-        public Builder sex(Sex sex) {
+        public T sex(Sex sex) {
             this.sex = sex;
-            return this;
+            return (T) this;
         }
 
-        public Builder academy(String academy) {
+        public T academy(String academy) {
             this.academy = academy;
-            return this;
+            return (T) this;
         }
 
-        public Builder role(Role role) {
+        public T role(Role role) {
             this.role = role;
-            return this;
+            return (T) this;
         }
-
-        public abstract AbstractEmployee build();
     }
 }

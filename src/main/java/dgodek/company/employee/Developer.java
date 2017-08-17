@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Developer extends AbstractEmployee {
 
-    public Developer(Developer.Builder builder) {
+    public Developer(Builder builder) {
         super(builder);
     }
 
@@ -33,13 +33,12 @@ public class Developer extends AbstractEmployee {
         return reports;
     }
 
-    public static class Builder extends AbstractEmployee.Builder {
+    public static class Builder extends AbstractEmployee.Builder<Builder> {
         public Builder(String name, String surname, String email, String nationality) {
             super(name, surname, email, nationality);
             role(Role.DEVELOPER);
         }
 
-        @Override
         public Developer build() {
             return new Developer(this);
         }
