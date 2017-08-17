@@ -6,18 +6,19 @@ import dgodek.company.*;
 import dgodek.company.employee.*;
 import dgodek.company.report.Report;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
 
 public class MainClass {
-    private static void assignEmployeesToManagers(List<Employee> managers, List<Employee> employees, int size) {
+    private static void assignEmployeesToManagers(List<TeamManager> managers, List<Employee> employees, int size) {
         int actualEmployee = 0;
 
-        for (Employee manager : managers) {
+        for (TeamManager manager : managers) {
             for (int i = 0; i < size; i++) {
-                ((TeamManager)manager).hire(employees.get(actualEmployee));
+                manager.hire(employees.get(actualEmployee));
                 actualEmployee++;
             }
         }
@@ -34,9 +35,13 @@ public class MainClass {
         ReportService reportService = new ReportService();
         EmployeeFactory employeeFactory = new EmployeeFactory();
 
-        List<Employee> employees = employeeFactory.getDevs((int) Math.pow(size, depth));
+        List<Employee> employees = new ArrayList<>();
 
-        TeamManager ceo = (TeamManager) new TeamManager.Builder("Łukasz","Łosoś",
+        employees.addAll(
+                employeeFactory.getDevs((int) Math.pow(size, depth)
+                ));
+
+        TeamManager ceo = new TeamManager.Builder("Łukasz","Łosoś",
                 "pstrongu@hotmail.com",size,"Poland")
                 .role(Role.CEO).academy("AGH").sex(Sex.MALE).build();
 
@@ -46,14 +51,15 @@ public class MainClass {
             }
         } else {
 
-            List<Employee> managers;
+            List<TeamManager> managers;
 
             managers = employeeFactory.getManagers((int) Math.pow(size, depth - 1), size);
 
             assignEmployeesToManagers(managers, employees, size);
 
             for (int i = depth - 1; i > 1; i--) {
-                employees = managers;
+                employees.clear();
+                employees.addAll(managers);
                 managers = employeeFactory.getManagers((int) Math.pow(size, i - 1), size);
                 assignEmployeesToManagers(managers, employees, size);
             }

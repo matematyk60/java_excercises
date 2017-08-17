@@ -72,7 +72,7 @@ public class EmployeeFactory {
         Sex sex = getSex();
         String academy = getAcademy();
 
-        return (Developer)new Developer.Builder(name,surname,email,nationality)
+        return new Developer.Builder(name,surname,email,nationality)
                 .sex(sex)
                 .academy(academy)
                 .build();
@@ -86,7 +86,7 @@ public class EmployeeFactory {
         Sex sex = getSex();
         String academy = getAcademy();
 
-        return (TeamManager) new TeamManager.Builder(name,surname,email,maxSize,nationality)
+        return new TeamManager.Builder(name,surname,email,maxSize,nationality)
                 .sex(sex)
                 .academy(academy)
                 .build();
@@ -94,8 +94,8 @@ public class EmployeeFactory {
 
 
 
-    public List<Employee> getDevs(int amount) {
-        List<Employee> devs = new ArrayList<>();
+    public List<Developer> getDevs(int amount) {
+        List<Developer> devs = new ArrayList<>();
 
         for(int i = 0 ; i < amount ; i++){
             devs.add(getDeveloper());
@@ -104,8 +104,8 @@ public class EmployeeFactory {
         return devs;
     }
 
-    public List<Employee> getManagers(int amount, int maxSize) {
-        List<Employee> managers = new ArrayList<>();
+    public List<TeamManager> getManagers(int amount, int maxSize) {
+        List<TeamManager> managers = new ArrayList<>();
 
         for(int i = 0 ; i < amount ; i++){
             managers.add(getManager(maxSize));
@@ -113,8 +113,4 @@ public class EmployeeFactory {
 
         return managers;
     }
-
-
-
-
 }

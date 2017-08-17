@@ -77,7 +77,6 @@ public class TeamManager extends AbstractEmployee implements Manager {
     public Report reportWork() {
         List<Report> reports = new ArrayList<>();
         employees.forEach((e) -> e.reportWork(reports));
-        reports.add(new WorkerReport(this));
 
         return new ManagerReport(this, reports);
     }
@@ -89,13 +88,13 @@ public class TeamManager extends AbstractEmployee implements Manager {
         return reports;
     }
 
-    public static class Builder extends AbstractEmployee.Builder {
+    public static class Builder extends AbstractEmployee.Builder<Builder> {
         private final int maxSize;
         private Predicate<Employee> predicate = (o) -> true;
 
         public Builder(String name, String surname, String email, int maxSize, String nationality) {
             super(name, surname, email, nationality);
-            role(Role.MANAGER);
+            super.role(Role.MANAGER);
             this.maxSize = maxSize;
         }
 
@@ -134,7 +133,6 @@ public class TeamManager extends AbstractEmployee implements Manager {
             return this;
         }
 
-        @Override
         public TeamManager build() {
             return new TeamManager(this);
         }
