@@ -69,7 +69,7 @@ public class MainClass {
             }
         }
 
-        int tasks = generator.nextInt(100) + 1;
+        int tasks = generator.nextInt(80) + 1;
 
         for (int i = 0; i < tasks; i++) {
             ceo.assign(employeeFactory.getTask());
