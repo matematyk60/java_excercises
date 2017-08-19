@@ -17,7 +17,7 @@ public class ManagerReport extends AbstractReport {
         sortReports();
     }
 
-    public void sortReports() {
+    private void sortReports() {
         reports.sort((o1, o2) -> ComparisonChain.start()
                 .compare(o1.getNameOfWorker(), o2.getNameOfWorker())
                 .compare(o1.getRole(), o2.getRole())
@@ -31,9 +31,6 @@ public class ManagerReport extends AbstractReport {
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
-                ", nationality='" + nationality + '\'' +
-                ", sex=" + sex +
-                ", academy='" + academy + '\'' +
                 ", role=" + role +
                 ", amountOfWork=" + amountOfWork +
                 ", reports=" + reports +

@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Developer extends AbstractEmployee {
 
-    public Developer(Builder builder) {
+    Developer(Builder builder) {
         super(builder);
     }
 
@@ -19,7 +19,7 @@ public class Developer extends AbstractEmployee {
     public void assign(Task task) {
         System.out.println(this.toString() + " | Adding task " + task.toString() + " to my tasklist");
         tasks.add(task);
-        amountOfWork += task.getunitsOfWork();
+        amountOfWork += task.getUnitsOfWork();
     }
 
     @Override

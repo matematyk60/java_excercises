@@ -20,9 +20,6 @@ public class WorkerReport extends AbstractReport {
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
-                ", nationality='" + nationality + '\'' +
-                ", sex=" + sex +
-                ", academy='" + academy + '\'' +
                 ", role=" + role +
                 ", amountOfWork=" + amountOfWork +
                 ", tasks=" + tasks +

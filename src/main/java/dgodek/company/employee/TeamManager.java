@@ -18,19 +18,19 @@ import java.util.regex.Pattern;
 public class TeamManager extends AbstractEmployee implements Manager {
     private final  List<Employee> employees;
     private int maxSize;
-    private Predicate<Employee> predicate;
+    private Predicate<Employee> hireStrategy;
 
-    public TeamManager(Builder builder) {
+    TeamManager(Builder builder) {
         super(builder);
         this.maxSize = builder.maxSize;
-        this.predicate = builder.predicate;
+        this.hireStrategy = builder.predicate;
         this.employees = new ArrayList<>();
     }
 
     @Override
     public boolean canHire(Employee employee) {
         return maxSize > employees.size() &&
-                predicate.test(employee);
+                hireStrategy.test(employee);
     }
 
     @Override
@@ -65,12 +65,12 @@ public class TeamManager extends AbstractEmployee implements Manager {
         System.out.println(this.toString() + " | Assigning " + task.toString() + "to employee " + employee.toString());
         employee.assign(task);
         tasks.add(task);
-        amountOfWork += task.getunitsOfWork();
+        amountOfWork += task.getUnitsOfWork();
     }
 
 
-    public void setPredicate(Predicate<Employee> predicate) {
-        this.predicate = predicate;
+    public void setHireStrategy(Predicate<Employee> predicate) {
+        this.hireStrategy = predicate;
     }
 
     @Override
@@ -98,36 +98,6 @@ public class TeamManager extends AbstractEmployee implements Manager {
             this.maxSize = maxSize;
         }
 
-        public static Builder getHiringOnlyMan(String name, String surname, String email, int maxSize,
-                                               String nationality) {
-
-            return new Builder(name, surname, email,maxSize,nationality)
-                    .predicate((o) -> o.getSex() == Sex.MALE);
-        }
-
-        public static Builder getHiringOnlyAGH(String name, String surname, String email, int maxSize,
-                                               String nationality) {
-
-            return new Builder(name, surname, email, maxSize, nationality)
-                    .predicate((o) -> o.getAcademy().equals("AGH"));
-        }
-
-        public static Builder getHiringOnlyFromPoland(String name, String surname, String email, int maxSize,
-                                               String nationality) {
-
-            return new Builder(name, surname, email, maxSize, nationality)
-                    .predicate((o) -> o.getNationality().equals("Poland"));
-        }
-
-        public static Builder getHiringOnlyWithGmailMail(String name, String surname, String email, int maxSize,
-                                                      String nationality) {
-
-            return new Builder(name, surname, email, maxSize, nationality)
-                    .predicate((o) -> Pattern
-                            .matches("[a-zA-Z0-9._]+@gmail\\.com",
-                                    o.getEmail()));
-        }
-
         public Builder predicate(Predicate<Employee> predicate) {
             this.predicate = predicate;
             return this;
@@ -136,6 +106,33 @@ public class TeamManager extends AbstractEmployee implements Manager {
         public TeamManager build() {
             return new TeamManager(this);
         }
+
+        public TeamManager buildHiringOnlyMan() {
+            this.predicate = (o) -> o.getSex() == Sex.MALE;
+
+            return new TeamManager(this);
+        }
+
+        public TeamManager buildHiringOnlyAGH() {
+            this.predicate = (o) -> o.getAcademy().equals("AGH");
+
+            return new TeamManager(this);
+        }
+
+        public TeamManager buildHiringOnlyFromPoland() {
+            this.predicate = (o) -> o.getNationality().equals("Poland");
+
+            return new TeamManager(this);
+        }
+
+        public TeamManager buildHiringOnlyWithGmailMail() {
+            this.predicate =(o) -> Pattern
+                            .matches("[a-zA-Z0-9._]+@gmail\\.com",
+                            o.getEmail());
+
+            return new TeamManager(this);
+        }
+
 
     }
 

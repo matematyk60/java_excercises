@@ -15,11 +15,11 @@ public abstract class AbstractEmployee implements Employee {
     private final String nationality;
     private final Sex sex;
     private final String academy;
-    protected final List<Task> tasks;
+    final List<Task> tasks;
     private Role role;
-    protected int amountOfWork;
+    int amountOfWork;
 
-    protected AbstractEmployee(Builder builder) {
+    AbstractEmployee(Builder builder) {
         this.name = builder.name;
         this.surname = builder.surname;
         this.email = builder.email;
@@ -97,7 +97,7 @@ public abstract class AbstractEmployee implements Employee {
         private String academy;
         private Role role;
 
-        protected Builder(String name, String surname, String email, String nationality) {
+        Builder(String name, String surname, String email, String nationality) {
             this.name = name;
             this.surname = surname;
             this.email = email;
@@ -106,6 +106,7 @@ public abstract class AbstractEmployee implements Employee {
 
         public T sex(Sex sex) {
             this.sex = sex;
+
             return (T) this;
         }
 
@@ -118,5 +119,7 @@ public abstract class AbstractEmployee implements Employee {
             this.role = role;
             return (T) this;
         }
+
+        public abstract AbstractEmployee build();
     }
 }

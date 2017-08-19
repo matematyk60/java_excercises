@@ -16,7 +16,7 @@ public class Task {
         return name;
     }
 
-    public int getunitsOfWork() {
+    public int getUnitsOfWork() {
         return unitsOfWork;
     }
 
