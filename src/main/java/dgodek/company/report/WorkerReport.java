@@ -1,7 +1,6 @@
 package dgodek.company.report;
 
 import dgodek.company.Task;
-import dgodek.company.employee.Developer;
 import dgodek.company.employee.Employee;
 
 import java.util.List;
