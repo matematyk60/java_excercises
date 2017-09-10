@@ -32,5 +32,5 @@ public interface Employee {
 
     List<Report> reportWork(List<Report> reports);
 
-    int getAmountOfWork();
+    Integer getAmountOfWork();
 }

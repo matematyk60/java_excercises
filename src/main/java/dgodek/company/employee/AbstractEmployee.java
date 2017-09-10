@@ -17,7 +17,7 @@ public abstract class AbstractEmployee implements Employee {
     private final String academy;
     final List<Task> tasks;
     private Role role;
-    int amountOfWork;
+    Integer amountOfWork;
 
     AbstractEmployee(Builder builder) {
         this.name = builder.name;
@@ -62,7 +62,7 @@ public abstract class AbstractEmployee implements Employee {
     }
 
     @Override
-    public int getAmountOfWork() {
+    public Integer getAmountOfWork() {
         return amountOfWork;
     }
 

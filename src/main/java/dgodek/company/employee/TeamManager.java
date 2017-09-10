@@ -18,19 +18,24 @@ import java.util.regex.Pattern;
 public class TeamManager extends AbstractEmployee implements Manager {
     private final  List<Employee> employees;
     private int maxSize;
-    private Predicate<Employee> hireStrategy;
+    private HiringStrategy hiringStrategy;
 
     TeamManager(Builder builder) {
         super(builder);
         this.maxSize = builder.maxSize;
-        this.hireStrategy = builder.predicate;
+        this.hiringStrategy = builder.hiringStrategy;
         this.employees = new ArrayList<>();
     }
 
     @Override
     public boolean canHire(Employee employee) {
-        return maxSize > employees.size() &&
-                hireStrategy.test(employee);
+        return isNotFull() &&
+                hiringStrategy.getPredicate().test(employee);
+    }
+
+    @Override
+    public boolean isNotFull() {
+        return maxSize > employees.size();
     }
 
     @Override
@@ -60,6 +65,23 @@ public class TeamManager extends AbstractEmployee implements Manager {
     }
 
     @Override
+    public Integer getAmountOfWork() {
+        if(employees.isEmpty()) {
+            return Integer.MAX_VALUE;
+        }
+        if(
+            employees.stream().anyMatch((e) -> e.getAmountOfWork().equals(Integer.MAX_VALUE))
+        ) {
+           return Integer.MAX_VALUE;
+        }
+        return amountOfWork;
+    }
+
+    public HiringStrategy getHiringStrategy() {
+        return hiringStrategy;
+    }
+
+    @Override
     public void assign(Task task) {
         Employee employee = getWorkerWithLowestAmountOfWork();
         System.out.println(this.toString() + " | Assigning " + task.toString() + "to employee " + employee.toString());
@@ -68,10 +90,6 @@ public class TeamManager extends AbstractEmployee implements Manager {
         amountOfWork += task.getUnitsOfWork();
     }
 
-
-    public void setHireStrategy(Predicate<Employee> predicate) {
-        this.hireStrategy = predicate;
-    }
 
     @Override
     public Report reportWork() {
@@ -90,7 +108,7 @@ public class TeamManager extends AbstractEmployee implements Manager {
 
     public static class Builder extends AbstractEmployee.Builder<Builder> {
         private final int maxSize;
-        private Predicate<Employee> predicate = (o) -> true;
+        private HiringStrategy hiringStrategy = HiringStrategy.NONE;
 
         public Builder(String name, String surname, String email, int maxSize, String nationality) {
             super(name, surname, email, nationality);
@@ -98,8 +116,8 @@ public class TeamManager extends AbstractEmployee implements Manager {
             this.maxSize = maxSize;
         }
 
-        public Builder predicate(Predicate<Employee> predicate) {
-            this.predicate = predicate;
+        public Builder hiringStategy(HiringStrategy hiringStrategy) {
+            this.hiringStrategy = hiringStrategy;
             return this;
         }
 
@@ -107,33 +125,38 @@ public class TeamManager extends AbstractEmployee implements Manager {
             return new TeamManager(this);
         }
 
-        public TeamManager buildHiringOnlyMan() {
-            this.predicate = (o) -> o.getSex() == Sex.MALE;
+    }
 
-            return new TeamManager(this);
+    public enum HiringStrategy {
+        HIRING_ONLY_WITH_GMAIL_MAIL((o) -> Pattern
+                .matches("[a-zA-Z0-9._]+@gmail\\.com",
+                        o.getEmail()), "Hiring only with gmail mail"),
+        HIRING_ONLY_FROM_POLAND((o) -> o.getNationality().equals("Poland"), "Hiring only from Poland"),
+        HIRING_ONLY_FROM_AGH((o) -> o.getAcademy().equals("AGH"), "Hiring only from AGH "),
+        HIRING_ONLY_MAN((o) -> o.getSex() == Sex.MALE, "Hiring only man"),
+        NONE((o) -> true, "None");
+
+        private Predicate<Employee> predicate;
+        private String stringRepresentation;
+
+        HiringStrategy(Predicate<Employee> predicate, String stringRepresentation) {
+            this.predicate = predicate;
+            this.stringRepresentation = stringRepresentation;
         }
 
-        public TeamManager buildHiringOnlyAGH() {
-            this.predicate = (o) -> o.getAcademy().equals("AGH");
-
-            return new TeamManager(this);
+        public Predicate<Employee> getPredicate() {
+            return predicate;
         }
 
-        public TeamManager buildHiringOnlyFromPoland() {
-            this.predicate = (o) -> o.getNationality().equals("Poland");
-
-            return new TeamManager(this);
-        }
-
-        public TeamManager buildHiringOnlyWithGmailMail() {
-            this.predicate =(o) -> Pattern
-                            .matches("[a-zA-Z0-9._]+@gmail\\.com",
-                            o.getEmail());
-
-            return new TeamManager(this);
+        public String getStringRepresentation() {
+            return stringRepresentation;
         }
 
 
+        @Override
+        public String toString() {
+            return stringRepresentation;
+        }
     }
 
 }
