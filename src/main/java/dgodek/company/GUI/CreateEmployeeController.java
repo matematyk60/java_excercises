@@ -45,9 +45,6 @@ public class CreateEmployeeController extends AbstractEmployeeWindow{
     @FXML
     private ToggleGroup sexToggleGroup;
 
-    @FXML
-    private RadioButton femaleRadioButton;
-
     private boolean employeeCreatedCorrectly = false;
 
 
