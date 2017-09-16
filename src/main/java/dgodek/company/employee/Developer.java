@@ -33,6 +33,11 @@ public class Developer extends AbstractEmployee {
         return reports;
     }
 
+    @Override
+    public Boolean isAssignable() {
+        return true;
+    }
+
     public static class Builder extends AbstractEmployee.Builder<Builder> {
         public Builder(String name, String surname, String email, String nationality) {
             super(name, surname, email, nationality);

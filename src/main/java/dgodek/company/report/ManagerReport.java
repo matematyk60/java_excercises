@@ -19,10 +19,15 @@ public class ManagerReport extends AbstractReport {
 
     private void sortReports() {
         reports.sort((o1, o2) -> ComparisonChain.start()
+                .compare(o1.getSurnameOfWorker(), o2.getSurnameOfWorker())
                 .compare(o1.getNameOfWorker(), o2.getNameOfWorker())
                 .compare(o1.getRole(), o2.getRole())
                 .compare(o1.getAmountOfWork(), o2.getAmountOfWork())
                 .result());
+    }
+
+    public List<Report> getReports() {
+        return reports;
     }
 
     @Override

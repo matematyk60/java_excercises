@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface Report {
-    int getAmountOfWork();
+    Integer getAmountOfWork();
 
     Role getRole();
 
     String getNameOfWorker();
+
+    String getSurnameOfWorker();
 }

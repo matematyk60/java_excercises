@@ -10,10 +10,10 @@ import javafx.scene.control.TreeItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompanyService {
+public class GUIService {
     private EmployeeFactory employeeFactory;
 
-    CompanyService() {
+    GUIService() {
         this.employeeFactory = new EmployeeFactory();
     }
 

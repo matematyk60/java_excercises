@@ -13,6 +13,10 @@ public class WorkerReport extends AbstractReport {
         this.tasks = employee.getTasks();
     }
 
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
     @Override
     public String toString() {
         return "WorkerReport{" +
