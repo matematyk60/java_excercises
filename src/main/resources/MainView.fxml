@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="738.0" prefWidth="1051.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dgodek.company.GUI.MainViewController">
+   <top>
+      <VBox prefHeight="283.0" prefWidth="997.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <HBox prefHeight="33.0" prefWidth="997.0">
+               <children>
+                  <Button fx:id="createCEO" mnemonicParsing="false" onAction="#createCEOClicked" text="Create CEO">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#randomCompanyClicked" text="Get random company">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+               </children></HBox>
+            <TitledPane fx:id="roleTitledPane" animated="false" collapsible="false" prefHeight="24.0" prefWidth="997.0" text="--" />
+            <HBox prefHeight="211.0" prefWidth="997.0">
+               <children>
+                  <GridPane hgap="10.0" prefHeight="203.0" prefWidth="358.0" vgap="10.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="89.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.0" minWidth="10.0" prefWidth="257.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label text="Name:" />
+                        <Label text="Surname:" GridPane.rowIndex="1" />
+                        <Label text="Academy:" GridPane.rowIndex="2" />
+                        <Label text="Nationality:" GridPane.rowIndex="3" />
+                        <Label text="Sex:" GridPane.rowIndex="4" />
+                        <Label text="Email:" GridPane.rowIndex="5" />
+                        <Label fx:id="nameLabel" text="--" GridPane.columnIndex="1" />
+                        <Label fx:id="surnameLabel" text="--" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="academyLabel" text="--" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="nationalityLabel" text="--" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="sexLabel" text="--" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="emailLabel" text="--" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </GridPane>
+                  <VBox prefHeight="203.0" prefWidth="288.0">
+                     <children>
+                        <Label text="Tasks assigned:">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TableView fx:id="taskTableView" prefHeight="167.0" prefWidth="252.0">
+                          <columns>
+                            <TableColumn fx:id="taskNameTableColumn" prefWidth="233.0" text="Task name" />
+                            <TableColumn fx:id="taskValTableColumn" prefWidth="53.0" text="Val" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="173.0" prefWidth="152.0" spacing="15.0">
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </padding>
+                     <children>
+                        <Button fx:id="reportWorkButton" mnemonicParsing="false" onAction="#reportWorkButtonClicked" text="Report work..." />
+                        <Button fx:id="assignTaskButton" mnemonicParsing="false" onAction="#assignTaskButtonClicked" text="Assign task..." />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="180.0" prefWidth="183.0" spacing="15.0">
+                     <children>
+                        <HBox prefHeight="28.0" prefWidth="108.0" spacing="10.0">
+                           <children>
+                              <Label prefHeight="16.0" prefWidth="94.0" text="Hiring:" />
+                              <Circle fx:id="hiringCircle" fill="DODGERBLUE" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <Label text="Hiring strategy:" />
+                        <Label fx:id="hiringStrategyLabel" text="--" />
+                        <Button fx:id="hireButton" mnemonicParsing="false" onAction="#hireButtonClicked" text="Hire..." />
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <TreeTableView fx:id="employeeTreeTableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TreeTableColumn fx:id="surnameColumn" prefWidth="217.0" text="Surname" />
+          <TreeTableColumn fx:id="nameColumn" prefWidth="220.0" text="Name" />
+            <TreeTableColumn fx:id="roleColumn" prefWidth="223.0" text="Role" />
+        </columns>
+      </TreeTableView>
+   </center>
+</BorderPane>

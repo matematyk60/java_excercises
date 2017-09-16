@@ -58,6 +58,7 @@ public class TeamManager extends AbstractEmployee implements Manager {
     public Employee getWorkerWithLowestAmountOfWork() {
         Optional<Employee> employeeWithLowestAmountOfWork = employees
                 .stream()
+                .filter(Employee::isAssignable)
                 .min(Comparator.comparing(Employee::getAmountOfWork));
 
         return employeeWithLowestAmountOfWork
@@ -66,15 +67,12 @@ public class TeamManager extends AbstractEmployee implements Manager {
 
     @Override
     public Integer getAmountOfWork() {
-        if(employees.isEmpty()) {
-            return Integer.MAX_VALUE;
-        }
-        if(
-            employees.stream().anyMatch((e) -> e.getAmountOfWork().equals(Integer.MAX_VALUE))
-        ) {
-           return Integer.MAX_VALUE;
-        }
         return amountOfWork;
+    }
+
+    @Override
+    public Boolean isAssignable() {
+        return employees.stream().anyMatch(Employee::isAssignable);
     }
 
     public HiringStrategy getHiringStrategy() {

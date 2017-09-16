@@ -157,7 +157,19 @@ public class MainViewController extends AbstractEmployeeWindow{
     }
 
     @FXML
-    void reportWorkButtonClicked(ActionEvent event) {
+    void reportWorkButtonClicked(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ReportWorkView.fxml"));
+        Parent loaded = loader.load();
+        ReportWorkController controller = loader.getController();
+        controller.setReport(actualEmployee.reportWork());
+
+
+        Stage stage = new Stage();
+        stage.initModality(Modality.NONE);
+        stage.setTitle("Report");
+        stage.setScene(new Scene(loaded));
+        stage.showAndWait();
+
 
     }
 

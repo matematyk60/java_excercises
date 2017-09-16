@@ -32,5 +32,7 @@ public interface Employee {
 
     List<Report> reportWork(List<Report> reports);
 
+    Boolean isAssignable();
+
     Integer getAmountOfWork();
 }

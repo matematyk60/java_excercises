@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dgodek.company.GUI.ReportWorkController">
+   <bottom>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="16.0" prefWidth="58.0" text="Tasks:">
+               <HBox.margin>
+                  <Insets bottom="37.0" left="20.0" right="37.0" top="37.0" />
+               </HBox.margin>
+            </Label>
+            <TableView fx:id="tasksTableView" prefHeight="100.0" prefWidth="544.0">
+              <columns>
+                <TableColumn fx:id="taskNameColumn" prefWidth="341.0" text="Name" />
+                <TableColumn fx:id="taskUnitsColumn" minWidth="0.0" prefWidth="175.0" text="Units" />
+              </columns>
+            </TableView>
+         </children>
+      </HBox>
+   </bottom>
+   <top>
+      <VBox spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox spacing="10.0">
+               <children>
+                  <Label text="Name:" />
+                  <Label fx:id="nameLabel" text="Label" />
+                  <Label text="Surname:" />
+                  <Label fx:id="surnameLabel" text="Label" />
+                  <Label text="Units of work:" />
+                  <Label fx:id="unitsOfWorkLabel" text="Label" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="11.0" left="11.0" right="11.0" top="11.0" />
+               </VBox.margin>
+            </HBox>
+            <Label text="Subworkers' report:">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </top>
+   <center>
+      <TableView fx:id="reportsTableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="nameColumn" prefWidth="164.0" text="Name" />
+          <TableColumn fx:id="surnameColumn" prefWidth="175.0" text="Surname" />
+            <TableColumn fx:id="roleColumn" prefWidth="201.0" text="Role" />
+            <TableColumn fx:id="unitsColumn" prefWidth="83.0" text="Units" />
+        </columns>
+      </TableView>
+   </center>
+</BorderPane>

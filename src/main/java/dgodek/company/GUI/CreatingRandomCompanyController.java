@@ -1,7 +1,5 @@
 package dgodek.company.GUI;
 
-import com.google.common.collect.ComparisonChain;
-import dgodek.company.EmployeeFactory;
 import dgodek.company.TaskFactory;
 import dgodek.company.employee.*;
 import javafx.event.ActionEvent;
@@ -10,13 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Pattern;
-import java.util.stream.IntStream;
 
 public class CreatingRandomCompanyController extends WindowThrowingWarnings {
 
@@ -35,7 +30,7 @@ public class CreatingRandomCompanyController extends WindowThrowingWarnings {
 
     private TreeItem<Employee> root;
 
-    private CompanyService companyService;
+    private GUIService GUIService;
 
     private TaskFactory taskFactory;
 
@@ -46,7 +41,7 @@ public class CreatingRandomCompanyController extends WindowThrowingWarnings {
     @FXML
     void initialize() {
         taskFactory = new TaskFactory();
-        companyService = new CompanyService();
+        GUIService = new GUIService();
         generator = new Random();
     }
 
@@ -65,9 +60,9 @@ public class CreatingRandomCompanyController extends WindowThrowingWarnings {
     }
 
     private void createCompany() {
-        List<TreeItem<Employee>> employees = companyService.getWrappedDevs((int) Math.pow(size, depth));
+        List<TreeItem<Employee>> employees = GUIService.getWrappedDevs((int) Math.pow(size, depth));
 
-        TreeItem<Employee> ceoItem = companyService.wrapUpEmployee(new TeamManager.Builder("Łukasz","Łosoś",
+        TreeItem<Employee> ceoItem = GUIService.wrapUpEmployee(new TeamManager.Builder("Łukasz","Łosoś",
                 "pstrongu@hotmail.com",size,"Poland")
                 .role(Role.CEO).academy("AGH").sex(Sex.MALE).build());
 
@@ -78,18 +73,18 @@ public class CreatingRandomCompanyController extends WindowThrowingWarnings {
                     }
             );
         } else {
-            List<TreeItem<Employee>> managers = companyService.getWrappedManagers((int) Math.pow(size, depth - 1), size);
+            List<TreeItem<Employee>> managers = GUIService.getWrappedManagers((int) Math.pow(size, depth - 1), size);
 
-            companyService.assignEmployeesToManagers(employees,managers);
+            GUIService.assignEmployeesToManagers(employees,managers);
 
             for (int i = depth - 1; i > 1; i--) {
                 employees.clear();
                 employees.addAll(managers);
-                managers = companyService.getWrappedManagers((int) Math.pow(size, i - 1), size);
-                companyService.assignEmployeesToManagers(employees, managers);
+                managers = GUIService.getWrappedManagers((int) Math.pow(size, i - 1), size);
+                GUIService.assignEmployeesToManagers(employees, managers);
             }
 
-            managers.forEach((i) -> companyService.assignEmployeeToManager(i,ceoItem));
+            managers.forEach((i) -> GUIService.assignEmployeeToManager(i,ceoItem));
         }
 
         int amountOfTasks = generator.nextInt(80)+1;

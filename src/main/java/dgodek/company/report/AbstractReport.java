@@ -11,7 +11,7 @@ public abstract class AbstractReport implements Report {
     final String surname;
     final String email;
     final Role role;
-    final int amountOfWork;
+    final Integer amountOfWork;
 
     AbstractReport(Employee employee) {
         this.name = employee.getName();
@@ -22,7 +22,7 @@ public abstract class AbstractReport implements Report {
     }
 
     @Override
-    public int getAmountOfWork() {
+    public Integer getAmountOfWork() {
         return amountOfWork;
     }
 
@@ -35,4 +35,10 @@ public abstract class AbstractReport implements Report {
     public String getNameOfWorker() {
         return name;
     }
+
+    @Override
+    public String getSurnameOfWorker() {
+        return surname;
+    }
+
 }
