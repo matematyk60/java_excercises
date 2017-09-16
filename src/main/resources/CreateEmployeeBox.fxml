@@ -57,7 +57,7 @@
                <toggleGroup>
                   <ToggleGroup fx:id="sexToggleGroup" />
                </toggleGroup></RadioButton>
-            <RadioButton fx:id="femaleRadioButton" mnemonicParsing="false" text="Female" toggleGroup="$sexToggleGroup" />
+            <RadioButton mnemonicParsing="false" text="Female" toggleGroup="$sexToggleGroup" />
          </children>
       </HBox>
       <Label fx:id="strategyLabel" prefHeight="16.0" prefWidth="115.0" text="Hiring strategy:" GridPane.rowIndex="8" />
