@@ -1,9 +1,11 @@
 package dgodek.company;
 
+import java.io.Serializable;
+
 /**
  * Created by matematyk60 on 23.07.17.
  */
-public class Task {
+public class Task implements Serializable {
     private final String name;
     private final int unitsOfWork;
 

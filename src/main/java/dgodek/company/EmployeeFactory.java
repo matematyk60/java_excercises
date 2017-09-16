@@ -1,25 +1,22 @@
-import com.google.common.collect.Collections2;
+package dgodek.company;
+
 import com.google.common.collect.ImmutableList;
 import dgodek.company.Task;
 import dgodek.company.employee.*;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
-class EmployeeFactory {
+public class EmployeeFactory {
     private Random generator;
     private final ImmutableList<String> names;
-    private final ImmutableList<String> taskNames;
     private final ImmutableList<String> surnames;
     private final ImmutableList<String> domains;
     private final ImmutableList<String> nationalities;
     private final ImmutableList<String> academies;
 
 
-    EmployeeFactory() {
+    public EmployeeFactory() {
         this.generator = new Random();
-        this.taskNames = ImmutableList.of("pisanie", "czytanie", "logowanie", "parsowanie", "wyliczanie",
-                "wyszukwianie", "odliczanie", "usuwanie", "liczenie", "szacowanie", "rejestracja");
         this.names = ImmutableList.of("Andrzej", "Szymon", "Piotr", "Ambroży",
                 "Bonifacy", "Bill", "Andżelika", "Kajtek", "Feliks", "Beata", "Robert");
         this.surnames = ImmutableList.of("Szydlo", "Fred", "Kanar", "Ptaszek",
@@ -34,39 +31,34 @@ class EmployeeFactory {
         return generator.nextInt(range);
     }
 
-    private String getName() {
+    public String getName() {
         return names.get(getRandom(names.size()));
     }
 
-    Task getTask() {
-        int tmp = getRandom(taskNames.size());
-
-        return new Task(taskNames.get(tmp), tmp);
-    }
-
-    private String getSurname() {
+    public String getSurname() {
         return surnames.get(getRandom(surnames.size()));
     }
 
-    private String getDomain() {
+    public String getDomain() {
         return domains.get(getRandom(domains.size()));
     }
 
-    private String getNationality() {
+    public String getNationality() {
         return nationalities.get(getRandom(nationalities.size()));
     }
 
-    private Sex getSex() {
+    public Sex getSex() {
         return (getRandom(1) == 0)
                 ? Sex.MALE
                 : Sex.FEMALE;
     }
 
-    private String getAcademy() {
+    public String getAcademy() {
         return academies.get(getRandom(academies.size()));
     }
 
-    Developer getDeveloper() {
+
+    public Developer getDeveloper() {
         String name = getName();
         String surname = getSurname();
         String nationality = getNationality();
@@ -80,7 +72,7 @@ class EmployeeFactory {
                 .build();
     }
 
-    TeamManager getManager(int maxSize) {
+    public TeamManager getManager(int maxSize) {
         String name = getName();
         String surname = getSurname();
         String nationality = getNationality();
@@ -94,7 +86,7 @@ class EmployeeFactory {
                 .build();
     }
 
-    List<Developer> getDevs(int amount) {
+    public List<Developer> getDevs(int amount) {
         List<Developer> devs = new ArrayList<>();
         for(int i = 0 ; i < amount ; i++){
             devs.add(getDeveloper());
@@ -103,12 +95,23 @@ class EmployeeFactory {
         return devs;
     }
 
-    List<TeamManager> getManagers(int amount, int maxSize) {
-        List<TeamManager> managers = new ArrayList<>();
+    public List<Manager> getManagers(int amount, int maxSize) {
+        List<Manager> managers = new ArrayList<>();
         for(int i = 0 ; i < amount ; i++){
             managers.add(getManager(maxSize));
         }
 
         return managers;
+    }
+
+    public static void assignEmployeesToManagers(List<Manager> managers, List<Employee> employees, int size) {
+        int actualEmployee = 0;
+
+        for (Manager manager : managers) {
+            for (int i = 0; i < size; i++) {
+                manager.hire(employees.get(actualEmployee));
+                actualEmployee++;
+            }
+        }
     }
 }
