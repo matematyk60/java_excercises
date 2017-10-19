@@ -120,6 +120,9 @@ public class TeamManager extends AbstractEmployee implements Manager {
         }
 
         public TeamManager build() {
+            if(hiringStrategy == null) {
+                hiringStrategy = HiringStrategy.NONE;
+            }
             return new TeamManager(this);
         }
 

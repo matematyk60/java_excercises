@@ -8,26 +8,24 @@ import dgodek.company.employee.*;
 import java.util.Objects;
 
 class NewEmployeeForm extends FormLayout {
-    private Button randomButton = new Button("Get random!");
-    private TextField nameField = new TextField("Name:");
-    private TextField surnameField = new TextField("Surname:");
-    private RadioButtonGroup<Sex> sexRadioButtonGroup = new RadioButtonGroup<>("Sex:");
-    private TextField emailField = new TextField("Email:");
-    private TextField nationalityField = new TextField("Nationality:");
-    private TextField academyField = new TextField("Academy;");
-    private ComboBox<Role> roleBox = new ComboBox<>("Role:");
-    private Button submitButton = new Button("Submit");
-    private ComboBox<TeamManager.HiringStrategy> strategyBox = new ComboBox<>("Strategy");
+    private final Button randomButton = new Button("Get random!");
+    private final TextField nameField = new TextField("Name:");
+    private final TextField surnameField = new TextField("Surname:");
+    private final RadioButtonGroup<Sex> sexRadioButtonGroup = new RadioButtonGroup<>("Sex:");
+    private final TextField emailField = new TextField("Email:");
+    private final TextField nationalityField = new TextField("Nationality:");
+    private final TextField academyField = new TextField("Academy;");
+    private final ComboBox<Role> roleBox = new ComboBox<>("Role:");
+    private final Button submitButton = new Button("Submit");
+    private final ComboBox<TeamManager.HiringStrategy> strategyBox = new ComboBox<>("Strategy");
 
-    private MyUI ui;
+    private final MainUI ui;
 
-    private Binder<EmployeeBuilder> binder = new Binder<>();
+    protected final Binder<EmployeeBuilder> binder = new Binder<>();
 
-    private EmployeeBuilder builder = new EmployeeBuilder();
+    private final EmployeeFactory employeeFactory = new EmployeeFactory();
 
-    private EmployeeFactory employeeFactory = new EmployeeFactory();
-
-    NewEmployeeForm(MyUI ui) {
+    NewEmployeeForm(MainUI ui) {
         this.ui = ui;
         this.setSpacing(true);
         this.setMargin(true);
@@ -80,11 +78,10 @@ class NewEmployeeForm extends FormLayout {
     private void initListeners() {
         randomButton.addClickListener(e -> fillWithRandomEmployee());
         submitButton.addClickListener(e -> {
-            if(binder.isValid()) {
-                exportEmployeeAndClose();
-            } else {
-                Notification.show("Provide correct employee values");
-            }
+            EmployeeBuilder builder = new EmployeeBuilder();
+            binder.writeBeanIfValid(builder);
+            Employee employee = builder.build();
+            validateAndExport(employee);
         });
         roleBox.addValueChangeListener(e -> {
             Role role = e.getValue();
@@ -94,6 +91,18 @@ class NewEmployeeForm extends FormLayout {
                 strategyBox.setVisible(false);
             }
         });
+    }
+
+    protected void validateAndExport(Employee employee) {
+        if(isValid(employee)) {
+            exportEmployeeAndClose(employee);
+        } else {
+            Notification.show("Provide correct employee values");
+        }
+    }
+
+    protected boolean isValid(Employee employee) {
+        return binder.isValid();
     }
 
     private void fillWithRandomEmployee() {
@@ -108,9 +117,8 @@ class NewEmployeeForm extends FormLayout {
     }
 
 
-    private void exportEmployeeAndClose() {
-        binder.writeBeanIfValid(builder);
-        ui.addEmployee(builder.build());
+    protected void exportEmployeeAndClose(Employee employee) {
+        ui.addEmployee(employee);
         ui.setDefaultContent();
     }
 
@@ -120,7 +128,7 @@ class NewEmployeeForm extends FormLayout {
                 role == Role.DEVELOPMENT_MANAGER;
     }
 
-    private static class EmployeeBuilder {
+    protected   static class EmployeeBuilder {
         private String name;
         private String surname;
         private Sex sex;
