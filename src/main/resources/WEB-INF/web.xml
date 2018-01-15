@@ -12,7 +12,7 @@
         <init-param>
             <description>Vaadin UI to display</description>
             <param-name>UI</param-name>
-            <param-value>dgodek.company.vaadin.MyUI</param-value>
+            <param-value>dgodek.company.vaadin.MainUI</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
